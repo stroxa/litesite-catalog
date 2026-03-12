@@ -1,0 +1,138 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --grid-gap: 64px;
+  --grid-max-width: 90%;
+  --grid-padding-horizontal: 40px;
+  --detail-back-offset: 20px;
+  --detail-images-padding-top: 80px;
+  --detail-images-padding-sides: 40px;
+  --detail-images-gap: 24px;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  overflow: auto;
+  background: #a9a9a9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--grid-gap);
+  max-width: var(--grid-max-width);
+  width: 100%;
+  padding: 0 var(--grid-padding-horizontal);
+}
+
+.theme-card {
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.theme-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#detail-view {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #111;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+#detail-view.active {
+  display: block;
+}
+
+#detail-back {
+  position: fixed;
+  top: var(--detail-back-offset);
+  left: var(--detail-back-offset);
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+#detail-back:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+#detail-images {
+  padding: var(--detail-images-padding-top) var(--detail-images-padding-sides) var(--detail-images-padding-sides);
+  display: flex;
+  flex-direction: column;
+  gap: var(--detail-images-gap);
+  align-items: center;
+}
+
+#detail-images img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#detail-images.mobile-view img {
+  width: 40%;
+}
+
+#view-toggle {
+  display: none;
+  position: fixed;
+  top: var(--detail-back-offset);
+  right: var(--detail-back-offset);
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+#view-toggle.active {
+  display: block;
+}
+
+#view-toggle:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 768px) {
+  #catalog-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 100%;
+    padding: 8px;
+  }
+
+  #detail-images.mobile-view img {
+    width: 100%;
+  }
+
+  #detail-images {
+    padding: var(--detail-images-padding-top) 5px 5px;
+    gap: 10px;
+  }
+}
