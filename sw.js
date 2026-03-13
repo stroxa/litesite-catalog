@@ -55,9 +55,14 @@ const CORE_PATHS = CORE_ASSETS.map(function(url) {
 
 self.addEventListener("install", function(e) {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(function(c) { return c.addAll(CORE_ASSETS); })
+    caches.open(CACHE_NAME).then(function(c) {
+      return c.addAll(CORE_ASSETS).then(function() {
+        return Promise.allSettled(
+          DETAIL_ASSETS.map(function(url) { return c.add(url); })
+        );
+      });
+    }).then(function() { return self.skipWaiting(); })
   );
-  self.skipWaiting();
 });
 
 self.addEventListener("activate", function(e) {
