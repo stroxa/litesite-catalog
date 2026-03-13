@@ -15,13 +15,13 @@ const THEME_IMAGES_WEB = {
     "s/img/litesite-web/litesite-red-tr-index.webp",
     "s/img/litesite-web/litesite-red-tr-product.webp",
     "s/img/litesite-web/litesite-red-tr-hakkimizda.webp",
-    "s/img/litesite-web/litesite-red-tr-menü.webp",
+    "s/img/litesite-web/litesite-red-tr-menu.webp",
   ],
   pink: [
     "s/img/litesite-web/litesite-pink-tr-index.webp",
     "s/img/litesite-web/litesite-pink-tr-product.webp",
     "s/img/litesite-web/litesite-pink-tr-hakkimizda.webp",
-    "s/img/litesite-web/litesite-pink-tr-menü.webp",
+    "s/img/litesite-web/litesite-pink-tr-menu.webp",
   ],
 };
 
@@ -42,13 +42,13 @@ const THEME_IMAGES_MOBILE = {
     "s/img/litesite-mobil/red-tr-index.webp",
     "s/img/litesite-mobil/red-tr-product.webp",
     "s/img/litesite-mobil/red-tr-hakkimizda.webp",
-    "s/img/litesite-mobil/red-tr-menü.webp",
+    "s/img/litesite-mobil/red-tr-menu.webp",
   ],
   pink: [
     "s/img/litesite-mobil/pink-tr-index.webp",
     "s/img/litesite-mobil/pink-tr-product.webp",
     "s/img/litesite-mobil/pink-tr-hakkimizda.webp",
-    "s/img/litesite-mobil/pink-tr-menü.webp",
+    "s/img/litesite-mobil/pink-tr-menu.webp",
   ],
 };
 
@@ -56,6 +56,11 @@ const VIEW_MODE_WEB = "web";
 const VIEW_MODE_MOBILE = "mobile";
 const MOBILE_VIEW_CLASS = "mobile-view";
 const DETAIL_ACTIVE_CLASS = "active";
+const THEME_CARD_SELECTOR = "#catalog-grid > div";
+const THEME_DATA_ATTRIBUTE = "theme";
+const LABEL_WEB = "Web";
+const LABEL_MOBILE = "Mobil";
+const KEY_ESCAPE = "Escape";
 
 const catalogGrid = document.getElementById("catalog-grid");
 const detailView = document.getElementById("detail-view");
@@ -74,6 +79,7 @@ function createThemeImage(src, themeName) {
   const img = document.createElement("img");
   img.src = src;
   img.alt = themeName;
+  img.loading = "lazy";
   return img;
 }
 
@@ -84,15 +90,19 @@ function populateDetailImages(images, themeName) {
   });
 }
 
+function showDetailView() {
+  detailView.classList.add(DETAIL_ACTIVE_CLASS);
+  viewToggle.classList.add(DETAIL_ACTIVE_CLASS);
+  detailView.scrollTop = 0;
+}
+
 function openThemeDetail(themeName) {
   const images = getActiveThemeImages()[themeName];
   if (!images) { return; }
 
   currentOpenTheme = themeName;
   populateDetailImages(images, themeName);
-  detailView.classList.add(DETAIL_ACTIVE_CLASS);
-  viewToggle.classList.add(DETAIL_ACTIVE_CLASS);
-  detailView.scrollTop = 0;
+  showDetailView();
 }
 
 function closeThemeDetail() {
@@ -101,15 +111,23 @@ function closeThemeDetail() {
   viewToggle.classList.remove(DETAIL_ACTIVE_CLASS);
 }
 
+function activateMobileView() {
+  currentViewMode = VIEW_MODE_MOBILE;
+  viewToggle.textContent = LABEL_WEB;
+  detailImages.classList.add(MOBILE_VIEW_CLASS);
+}
+
+function activateWebView() {
+  currentViewMode = VIEW_MODE_WEB;
+  viewToggle.textContent = LABEL_MOBILE;
+  detailImages.classList.remove(MOBILE_VIEW_CLASS);
+}
+
 function toggleViewMode() {
   if (currentViewMode === VIEW_MODE_WEB) {
-    currentViewMode = VIEW_MODE_MOBILE;
-    viewToggle.textContent = "Web";
-    detailImages.classList.add(MOBILE_VIEW_CLASS);
+    activateMobileView();
   } else {
-    currentViewMode = VIEW_MODE_WEB;
-    viewToggle.textContent = "Mobil";
-    detailImages.classList.remove(MOBILE_VIEW_CLASS);
+    activateWebView();
   }
 
   if (currentOpenTheme) {
@@ -119,10 +137,14 @@ function toggleViewMode() {
 }
 
 catalogGrid.addEventListener("click", function (event) {
-  const card = event.target.closest(".theme-card");
+  const card = event.target.closest(THEME_CARD_SELECTOR);
   if (!card) { return; }
 
-  openThemeDetail(card.dataset.theme);
+  openThemeDetail(card.dataset[THEME_DATA_ATTRIBUTE]);
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === KEY_ESCAPE) { closeThemeDetail(); }
 });
 
 detailBack.addEventListener("click", closeThemeDetail);
