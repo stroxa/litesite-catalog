@@ -23,6 +23,16 @@ const THEME_IMAGES_WEB = {
     "s/img/litesite-web/litesite-pink-tr-hakkimizda.png",
     "s/img/litesite-web/litesite-pink-tr-menu.png",
   ],
+  green: [
+    "s/img/litesite-web/litesite-green-tr-index.png",
+    "s/img/litesite-web/litesite-green-tr-product.png",
+  ],
+  yellow: [
+    "s/img/litesite-web/litesite-yellow-tr-index.png",
+    "s/img/litesite-web/litesite-yellow-tr-product.png",
+    "s/img/litesite-web/litesite-yellow-tr-hakkimizda.png",
+    "s/img/litesite-web/litesite-yellow-tr-menu.png",
+  ],
 };
 
 const THEME_IMAGES_MOBILE = {
@@ -49,6 +59,16 @@ const THEME_IMAGES_MOBILE = {
     "s/img/litesite-mobil/pink-tr-product.png",
     "s/img/litesite-mobil/pink-tr-hakkimizda.png",
     "s/img/litesite-mobil/pink-tr-menu.png",
+  ],
+  green: [
+    "s/img/litesite-mobil/green-tr-index.png",
+    "s/img/litesite-mobil/green-tr-product.png",
+  ],
+  yellow: [
+    "s/img/litesite-mobil/yellow-tr-index.png",
+    "s/img/litesite-mobil/yellow-tr-product.png",
+    "s/img/litesite-mobil/yellow-tr-hakkimizda.png",
+    "s/img/litesite-mobil/yellow-tr-menu.png",
   ],
 };
 
