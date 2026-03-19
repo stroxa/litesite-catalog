@@ -134,13 +134,14 @@ main {
 
 @media (max-width: 990px) {
   #catalog-grid {
-    grid-template-columns: repeat(1, 6fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     gap: var(--mobile-card-gap);
     max-width: 100%;
     padding: var(--mobile-card-padding);
   }
 
-  #detail-images.mobile-view > img {s
+  #detail-images.mobile-view > img {
     width: 100%;
   }
 
